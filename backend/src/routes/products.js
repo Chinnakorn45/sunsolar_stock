@@ -11,22 +11,21 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 const router = express.Router();
 const pool = require('../db');
 
-// --- Multer config: เก็บรูปใน /uploads ---
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = path.join(__dirname, '..', '..', 'uploads');
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    // ตั้งชื่อไฟล์: product_<timestamp>.<ext>
-    const ext = path.extname(file.originalname);
-    cb(null, `product_${Date.now()}${ext}`);
-  },
-});
+// ตั้งค่า Cloudinary (ถ้ามีใน .env)
+if (process.env.CLOUDINARY_CLOUD_NAME) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
+
+// ใช้ Memory Storage เพื่อจัดการรูปบน Serverless ได้ง่าย
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
@@ -40,6 +39,44 @@ const upload = multer({
     }
   },
 });
+
+// Helper Function: อัปโหลดรูปภาพ
+async function uploadImage(file) {
+  if (process.env.CLOUDINARY_CLOUD_NAME) {
+    const b64 = Buffer.from(file.buffer).toString('base64');
+    let dataURI = "data:" + file.mimetype + ";base64," + b64;
+    const res = await cloudinary.uploader.upload(dataURI, { folder: "solar_stock" });
+    return res.secure_url;
+  } else {
+    const ext = path.extname(file.originalname);
+    const filename = `product_${Date.now()}${ext}`;
+    const dir = path.join(__dirname, '..', '..', 'uploads');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, filename), file.buffer);
+    return `/uploads/${filename}`;
+  }
+}
+
+// Helper Function: ลบรูปภาพ
+async function deleteImage(imageUrl) {
+  if (!imageUrl) return;
+  if (imageUrl.includes('res.cloudinary.com')) {
+    try {
+      const parts = imageUrl.split('/');
+      const filename = parts[parts.length - 1].split('.')[0];
+      await cloudinary.uploader.destroy(`solar_stock/${filename}`);
+    } catch (err) {
+      console.error('Failed to delete from Cloudinary:', err.message);
+    }
+  } else if (imageUrl.startsWith('/uploads/')) {
+    try {
+      const oldPath = path.join(__dirname, '..', '..', imageUrl);
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+    } catch (err) {
+      console.error('Failed to delete local file:', err.message);
+    }
+  }
+}
 
 /**
  * GET /api/products
@@ -69,8 +106,8 @@ router.post('/', upload.single('image'), async (req, res) => {
       return res.status(400).json({ error: 'name and unit are required' });
     }
 
-    // ถ้ามีไฟล์รูป → สร้าง URL path
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
+    // ถ้ามีไฟล์รูป → อัปโหลดรูปใหม่
+    const imageUrl = req.file ? await uploadImage(req.file) : '';
 
     const result = await pool.query(
       `INSERT INTO products (name, unit, reorder_point, image_url)
@@ -108,14 +145,12 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 
     if (req.file) {
       imageClause = ', image_url = $5';
-      params.push(`/uploads/${req.file.filename}`);
+      const newImageUrl = await uploadImage(req.file);
+      params.push(newImageUrl);
 
       // ลบรูปเก่า
       const old = await pool.query('SELECT image_url FROM products WHERE id = $1', [id]);
-      if (old.rows[0]?.image_url) {
-        const oldPath = path.join(__dirname, '..', '..', old.rows[0].image_url);
-        if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-      }
+      await deleteImage(old.rows[0]?.image_url);
     }
 
     const result = await pool.query(
@@ -157,12 +192,9 @@ router.post('/:id/image', upload.single('image'), async (req, res) => {
     if (old.rows.length === 0) {
       return res.status(404).json({ error: 'Product not found' });
     }
-    if (old.rows[0].image_url) {
-      const oldPath = path.join(__dirname, '..', '..', old.rows[0].image_url);
-      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-    }
+    await deleteImage(old.rows[0].image_url);
 
-    const imageUrl = `/uploads/${req.file.filename}`;
+    const imageUrl = await uploadImage(req.file);
     const result = await pool.query(
       `UPDATE products SET image_url = $1 WHERE id = $2 RETURNING *`,
       [imageUrl, id]
@@ -183,12 +215,9 @@ router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    // ลบรูปจาก disk
+    // ลบรูป
     const old = await pool.query('SELECT image_url FROM products WHERE id = $1', [id]);
-    if (old.rows[0]?.image_url) {
-      const oldPath = path.join(__dirname, '..', '..', old.rows[0].image_url);
-      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-    }
+    await deleteImage(old.rows[0]?.image_url);
 
     const txnCheck = await pool.query(
       'SELECT COUNT(*) AS count FROM stock_transactions WHERE product_id = $1', [id]
