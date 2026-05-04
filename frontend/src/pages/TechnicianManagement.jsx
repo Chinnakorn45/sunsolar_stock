@@ -75,7 +75,7 @@ export default function TechnicianManagement() {
           method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
         });
       } else {
-        res = await fetch(`${API_BASE}/technicians', {
+        res = await fetch(`${API_BASE}/technicians`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
         });
       }
