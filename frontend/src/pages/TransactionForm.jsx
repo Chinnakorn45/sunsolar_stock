@@ -94,12 +94,20 @@ export default function TransactionForm() {
         }),
       });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Unknown error');
+      let resData;
+      const textResponse = await res.text();
+      try {
+        resData = textResponse ? JSON.parse(textResponse) : {};
+      } catch (e) {
+        console.error('Raw response from server:', textResponse);
+        throw new Error(`Invalid response from server: ${textResponse.substring(0, 50)}...`);
       }
 
-      const txn = await res.json();
+      if (!res.ok) {
+        throw new Error(resData.error || 'Unknown error');
+      }
+
+      const txn = resData;
 
       // หาชื่อสินค้าเพื่อแสดงใน recent list
       const product = products.find((p) => p.id === parseInt(productId));
