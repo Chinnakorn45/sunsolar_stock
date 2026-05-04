@@ -1,0 +1,334 @@
+@import "tailwindcss";
+
+/* ============================================
+   Solar Stock Management — Design System
+   Dark mode solar-themed with amber accents
+   ============================================ */
+
+/* --- Google Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* --- Tailwind v4 Theme --- */
+@theme {
+  --color-solar-50: #fffbeb;
+  --color-solar-100: #fef3c7;
+  --color-solar-200: #fde68a;
+  --color-solar-300: #fcd34d;
+  --color-solar-400: #fbbf24;
+  --color-solar-500: #f59e0b;
+  --color-solar-600: #d97706;
+  --color-solar-700: #b45309;
+  --color-solar-800: #92400e;
+  --color-solar-900: #78350f;
+
+  --color-surface-900: #0c0f1a;
+  --color-surface-800: #111827;
+  --color-surface-700: #1a2235;
+  --color-surface-600: #1f2b3d;
+  --color-surface-500: #283548;
+  --color-surface-400: #374151;
+
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-info-400: #60a5fa;
+  --color-info-500: #3b82f6;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* --- Base Styles --- */
+body {
+  font-family: var(--font-sans);
+  background: linear-gradient(135deg, var(--color-surface-900) 0%, #0f172a 50%, #0c1220 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* --- Glassmorphism Card --- */
+.glass-card {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(251, 191, 36, 0.1);
+  border-radius: 1rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(251, 191, 36, 0.05);
+  transform: translateY(-1px);
+}
+
+/* --- Form Input Styles --- */
+.form-input {
+  background: rgba(26, 34, 53, 0.8);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-solar-400);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+  background: rgba(26, 34, 53, 1);
+}
+
+.form-input::placeholder {
+  color: #64748b;
+}
+
+/* --- Select Dropdown --- */
+.form-select {
+  background: rgba(26, 34, 53, 0.8);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 5.646a.5.5 0 0 1 .708 0L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-solar-400);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+}
+
+/* --- Primary Button --- */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-solar-500), var(--color-solar-600));
+  color: #0c0f1a;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-solar-400), var(--color-solar-500));
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Toggle Switch (IN/OUT) --- */
+.toggle-group {
+  display: flex;
+  gap: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(55, 65, 81, 0.6);
+}
+
+.toggle-btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: rgba(26, 34, 53, 0.8);
+  color: #94a3b8;
+  flex: 1;
+  text-align: center;
+}
+
+.toggle-btn.active-in {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: white;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.toggle-btn.active-out {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: white;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(251, 191, 36, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+/* --- Toast Notification --- */
+.toast {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  animation: slideDown 0.4s ease-out forwards;
+  max-width: 90vw;
+}
+
+.toast-success {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* --- Table Styles --- */
+.summary-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.summary-table thead th {
+  background: rgba(26, 34, 53, 0.9);
+  color: var(--color-solar-400);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.summary-table tbody td {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+  transition: background 0.15s ease;
+}
+
+.summary-table tbody tr:hover td {
+  background: rgba(251, 191, 36, 0.04);
+}
+
+.summary-table tbody tr.low-stock td {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.summary-table tbody tr.low-stock:hover td {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* --- Low stock warning pulse --- */
+.low-stock-badge {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(17, 24, 39, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 191, 36, 0.5);
+}
+
+/* --- Mobile Card Layout (for daily summary) --- */
+@media (max-width: 768px) {
+  .mobile-card {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+  }
+
+  .mobile-card:last-child {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "solar-stock-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Solar Cell Equipment Stock Management",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "migrate": "node src/migrate.js",
+    "seed": "node seed.js",
+    "setup-db": "node setup-db.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^2.1.1",
+    "pg": "^8.13.1"
+  }
+}
