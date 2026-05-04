@@ -4,7 +4,7 @@
  */
 import { useState, useEffect, useRef } from 'react';
 
-const API_BASE = '/api';
+import { API_BASE } from '../utils/api';
 
 export default function ProductManagement() {
   const [products, setProducts] = useState([]);

@@ -3,6 +3,7 @@
  * Form สำหรับบันทึกธุรกรรม IN (นำเข้า) / OUT (จ่ายออก)
  */
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../utils/api';
 
 export default function TransactionForm() {
   // --- State ---
@@ -36,7 +37,7 @@ export default function TransactionForm() {
 
   async function fetchProducts() {
     try {
-      const res = await fetch('/api/reports/inventory-overview');
+      const res = await fetch(`${API_BASE}/reports/inventory-overview`);
       const data = await res.json();
       const mapped = data.map(p => ({
         ...p,
@@ -54,7 +55,7 @@ export default function TransactionForm() {
 
   async function fetchTechnicians() {
     try {
-      const res = await fetch('/api/technicians');
+      const res = await fetch(`${API_BASE}/technicians`);
       const data = await res.json();
       setTechnicians(data);
     } catch (err) {
@@ -79,7 +80,7 @@ export default function TransactionForm() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/transactions', {
+      const res = await fetch(`${API_BASE}/transactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

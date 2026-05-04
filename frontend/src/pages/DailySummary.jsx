@@ -4,6 +4,7 @@
  * Mobile: Card-based layout, Desktop: Table layout
  */
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../utils/api';
 import { LowStockBadge, NumberDisplay } from '../components/StatusBadge';
 
 export default function DailySummary() {
@@ -21,7 +22,7 @@ export default function DailySummary() {
   async function fetchSummary() {
     setLoading(true);
     try {
-      const res = await fetch(`/api/reports/daily-summary?date=${selectedDate}`);
+      const res = await fetch(`${API_BASE}/reports/daily-summary?date=${selectedDate}`);
       const json = await res.json();
       setData(json);
     } catch (err) {

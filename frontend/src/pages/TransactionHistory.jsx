@@ -3,6 +3,7 @@
  * แสดงรายการ IN/OUT ทั้งหมดที่เคยบันทึก
  */
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../utils/api';
 
 export default function TransactionHistory() {
   const [data, setData] = useState([]);

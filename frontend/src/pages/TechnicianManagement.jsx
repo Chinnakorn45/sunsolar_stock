@@ -3,6 +3,7 @@
  * เพิ่ม / แก้ไข / ลบ ช่างผู้รับอุปกรณ์
  */
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../utils/api';
 
 export default function TechnicianManagement() {
   const [technicians, setTechnicians] = useState([]);
@@ -25,7 +26,7 @@ export default function TechnicianManagement() {
 
   async function fetchTechnicians() {
     try {
-      const res = await fetch('/api/technicians?all=true');
+      const res = await fetch(`${API_BASE}/technicians?all=true`);
       const data = await res.json();
       setTechnicians(data);
     } catch (err) {
@@ -70,11 +71,11 @@ export default function TechnicianManagement() {
       let res;
       if (editing) {
         body.is_active = editing.is_active;
-        res = await fetch(`/api/technicians/${editing.id}`, {
+        res = await fetch(`${API_BASE}/technicians/${editing.id}`, {
           method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
         });
       } else {
-        res = await fetch('/api/technicians', {
+        res = await fetch(`${API_BASE}/technicians', {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
         });
       }
@@ -94,7 +95,7 @@ export default function TechnicianManagement() {
   // Toggle active/inactive
   async function toggleActive(tech) {
     try {
-      const res = await fetch(`/api/technicians/${tech.id}`, {
+      const res = await fetch(`${API_BASE}/technicians/${tech.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...tech, is_active: !tech.is_active }),
@@ -109,7 +110,7 @@ export default function TechnicianManagement() {
 
   async function handleDelete(tech) {
     try {
-      const res = await fetch(`/api/technicians/${tech.id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_BASE}/technicians/${tech.id}`, { method: 'DELETE' });
       if (!res.ok) { const err = await res.json(); throw new Error(err.error); }
       showToast(`✅ ลบ "${tech.name}" สำเร็จ`);
       setDeleteConfirm(null);

@@ -3,6 +3,7 @@
  * แสดงสถานะอุปกรณ์แบบภาพรวม (All-time)
  */
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../utils/api';
 import { LowStockBadge, NumberDisplay } from '../components/StatusBadge';
 
 export default function InventoryOverview() {
@@ -16,7 +17,7 @@ export default function InventoryOverview() {
   async function fetchOverview() {
     setLoading(true);
     try {
-      const res = await fetch(`/api/reports/inventory-overview`);
+      const res = await fetch(`${API_BASE}/reports/inventory-overview`);
       const json = await res.json();
       setData(json);
     } catch (err) {
