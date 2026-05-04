@@ -80,7 +80,7 @@ export default function TransactionForm() {
     setSubmitting(true);
 
     try {
-      const res = await fetch(`${API_BASE}/transactions', {
+      const res = await fetch(`${API_BASE}/transactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
