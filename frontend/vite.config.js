@@ -7,15 +7,10 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     port: 5173,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
-      '/uploads': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
+    host: '0.0.0.0',        // ให้ Docker network เข้าถึงได้
+    strictPort: true,
+    watch: {
+      usePolling: true,      // ใช้ polling สำหรับ Docker volumes (Windows/macOS)
     },
   },
 })

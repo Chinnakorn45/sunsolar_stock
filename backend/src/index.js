@@ -35,12 +35,7 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Solar Stock API is running 🌞' });
 });
 
-// --- Start Server (เฉพาะรันบนเครื่อง Local) ---
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`🌞 Solar Stock API running on http://localhost:${PORT}`);
-  });
-}
-
-// Export app สำหรับ Vercel Serverless
-module.exports = app;
+// --- Start Server ---
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🌞 Solar Stock API running on http://0.0.0.0:${PORT}`);
+});
