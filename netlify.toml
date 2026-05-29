@@ -3,6 +3,17 @@
   publish = "dist"
   command = "npm run build"
 
+[build.environment]
+#  VITE_API_BASE = "https://your-backend.example.com" # set this in Netlify or uncomment and edit
+
+[[redirects]]
+# Proxy API requests to your backend. Replace the host below with your backend URL
+# Example: to = "https://api.example.com/:splat"
+  from = "/api/*"
+  to = "https://YOUR_BACKEND_URL/:splat"
+  status = 200
+  force = false
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
