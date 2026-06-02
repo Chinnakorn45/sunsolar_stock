@@ -12,7 +12,6 @@
   from = "/api/*"
   to = "https://sunsolar-stock.onrender.com/api/:splat"
   status = 200
-  force = true
 
 [[redirects]]
   from = "/*"
