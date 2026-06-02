@@ -6,6 +6,8 @@
 services:
   backend:
     build:
+      context: ./backend
+      dockerfile: Dockerfile
       target: production
     environment:
       NODE_ENV: production
@@ -15,6 +17,8 @@ services:
 
   frontend:
     build:
+      context: ./frontend
+      dockerfile: Dockerfile
       target: production
 
   nginx:
