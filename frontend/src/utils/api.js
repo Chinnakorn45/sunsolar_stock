@@ -1,5 +1,10 @@
 // utils/api.js
-// Frontend uses Vite env `VITE_API_BASE` when provided (set on Netlify
-// or in local `.env`), otherwise falls back to the relative `/api` path
-// (when running behind a proxy such as the project's Nginx in Docker).
-export const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+// Frontend uses Vite env `VITE_API_BASE` when provided, otherwise falls back
+// to the relative `/api` path (for proxy environments such as Vercel rewrites
+// or local Docker/Nginx setups).
+const rawApiBase = import.meta.env.VITE_API_BASE?.trim();
+const normalizedApiBase = rawApiBase
+  ? rawApiBase.replace(/\/+$/, '').replace(/\/api$/, '') + '/api'
+  : '/api';
+
+export const API_BASE = normalizedApiBase;
