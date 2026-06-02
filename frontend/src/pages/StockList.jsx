@@ -27,6 +27,13 @@ function getStatus(net_balance, reorder_point) {
   return 'ok';
 }
 
+function getImageSrc(imageUrl) {
+  if (!imageUrl) return '';
+  if (imageUrl.startsWith('http')) return imageUrl;
+  const base = API_BASE.replace(/\/api$/, '');
+  return `${base}${imageUrl}`;
+}
+
 const STATUS_CONFIG = {
   ok:    { label: 'ปกติ',    bg: 'bg-emerald-500/15', text: 'text-emerald-600', border: 'border-emerald-500/25', dot: 'bg-emerald-500', bar: 'bg-gradient-to-r from-emerald-400 to-emerald-500' },
   low:   { label: 'สต๊อกต่ำ', bg: 'bg-amber-500/15',  text: 'text-amber-600',  border: 'border-amber-500/25',  dot: 'bg-amber-500',  bar: 'bg-gradient-to-r from-amber-400 to-orange-400' },
@@ -296,7 +303,7 @@ export default function StockList() {
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center">
                             {row.image_url
-                              ? <img src={row.image_url} alt={row.product_name} className="w-full h-full object-cover" />
+                              ? <img src={getImageSrc(row.image_url)} alt={row.product_name} className="w-full h-full object-cover" />
                               : <span className="text-base opacity-40">📦</span>}
                           </div>
                           <span className="font-semibold text-slate-800 text-sm">{row.product_name}</span>
@@ -388,7 +395,7 @@ function StockCard({ row, idx, barWidth }) {
       <div className="relative h-44 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
         {row.image_url ? (
           <img
-            src={row.image_url}
+            src={getImageSrc(row.image_url)}
             alt={row.product_name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }}

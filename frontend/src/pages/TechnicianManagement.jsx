@@ -136,8 +136,8 @@ export default function TechnicianManagement() {
       {/* Header */}
       <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 animate-fade-in-up">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-1">👷 จัดการรายชื่อช่าง</h2>
-          <p className="text-slate-400 text-sm">เพิ่ม แก้ไข ลบ รายชื่อช่างผู้รับอุปกรณ์ ({technicians.length} คน)</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">👷 จัดการรายชื่อช่าง</h2>
+          <p className="text-slate-500 text-sm">เพิ่ม แก้ไข ลบ รายชื่อช่างผู้รับอุปกรณ์ ({technicians.length} คน)</p>
         </div>
         <button onClick={handleAdd} className="btn-primary whitespace-nowrap">
           ➕ เพิ่มช่าง
@@ -186,20 +186,20 @@ export default function TechnicianManagement() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm sm:text-base font-semibold text-white truncate">{tech.name}</h3>
+                    <h3 className="text-sm sm:text-base font-semibold text-slate-800 truncate">{tech.name}</h3>
                     {!tech.is_active && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-600/50 text-slate-400">ปิดใช้งาน</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 text-slate-500 border border-slate-300">ปิดใช้งาน</span>
                     )}
                   </div>
                   <div className="flex items-center gap-3 mt-0.5 flex-wrap">
                     {tech.role && (
                       <span className="text-xs text-slate-500">
-                        ตำแหน่ง: <span className="text-solar-400">{tech.role}</span>
+                        ตำแหน่ง: <span className="text-solar-600 font-medium">{tech.role}</span>
                       </span>
                     )}
                     {tech.phone && (
                       <span className="text-xs text-slate-500">
-                        📱 <span className="text-slate-400">{tech.phone}</span>
+                        📱 <span className="text-slate-600">{tech.phone}</span>
                       </span>
                     )}
                   </div>
@@ -257,30 +257,30 @@ export default function TechnicianManagement() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={handleCloseModal} />
           <div className="glass-card relative w-full max-w-md p-6 sm:p-8 animate-fade-in-up z-10 border-solar-500/20">
-            <h3 className="text-xl font-bold text-white mb-6">
+            <h3 className="text-xl font-bold text-slate-900 mb-6">
               {editing ? '✏️ แก้ไขช่าง' : '➕ เพิ่มช่างใหม่'}
             </h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="tech-name" className="block text-sm font-medium text-slate-300 mb-2">
+                <label htmlFor="tech-name" className="block text-sm font-medium text-slate-700 mb-2">
                   ชื่อ-นามสกุล <span className="text-red-400">*</span>
                 </label>
                 <input id="tech-name" type="text" className="form-input" placeholder="เช่น สมชาย ใจดี"
                   value={formName} onChange={(e) => setFormName(e.target.value)} autoFocus required />
               </div>
               <div className="mb-4">
-                <label htmlFor="tech-phone" className="block text-sm font-medium text-slate-300 mb-2">เบอร์โทร</label>
+                <label htmlFor="tech-phone" className="block text-sm font-medium text-slate-700 mb-2">เบอร์โทร</label>
                 <input id="tech-phone" type="text" className="form-input" placeholder="เช่น 081-234-5678"
                   value={formPhone} onChange={(e) => setFormPhone(e.target.value)} />
               </div>
               <div className="mb-6">
-                <label htmlFor="tech-role" className="block text-sm font-medium text-slate-300 mb-2">ตำแหน่ง / ทีม</label>
+                <label htmlFor="tech-role" className="block text-sm font-medium text-slate-700 mb-2">ตำแหน่ง / ทีม</label>
                 <input id="tech-role" type="text" className="form-input" placeholder="เช่น ช่างติดตั้ง, หัวหน้าทีม"
                   value={formRole} onChange={(e) => setFormRole(e.target.value)} />
               </div>
               <div className="flex gap-3">
                 <button type="button" onClick={handleCloseModal}
-                  className="flex-1 px-4 py-2.5 rounded-xl border border-slate-600 text-slate-300 hover:bg-white/5 transition-colors text-sm font-medium">
+                  className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors text-sm font-medium">
                   ยกเลิก
                 </button>
                 <button type="submit" className="btn-primary flex-1" disabled={submitting}>
@@ -301,14 +301,14 @@ export default function TechnicianManagement() {
               <div className="w-14 h-14 rounded-full bg-red-500/15 flex items-center justify-center mx-auto mb-3">
                 <span className="text-3xl">🗑️</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">ยืนยันการลบ</h3>
-              <p className="text-sm text-slate-400">
-                ต้องการลบ <span className="text-white font-medium">"{deleteConfirm.name}"</span> ใช่ไหม?
+              <h3 className="text-lg font-bold text-slate-900 mb-2">ยืนยันการลบ</h3>
+              <p className="text-sm text-slate-600">
+                ต้องการลบ <span className="text-slate-900 font-semibold">"{deleteConfirm.name}"</span> ใช่ไหม?
               </p>
             </div>
             <div className="flex gap-3">
               <button onClick={() => setDeleteConfirm(null)}
-                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-600 text-slate-300 hover:bg-white/5 transition-colors text-sm font-medium">
+                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors text-sm font-medium">
                 ยกเลิก
               </button>
               <button onClick={() => handleDelete(deleteConfirm)}

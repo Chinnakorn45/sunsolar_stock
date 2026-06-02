@@ -147,7 +147,8 @@ export default function ProductManagement() {
   function getImageSrc(imageUrl) {
     if (!imageUrl) return '';
     if (imageUrl.startsWith('http')) return imageUrl;
-    return imageUrl; // /uploads/... จะถูก proxy ไปที่ backend
+    const base = API_BASE.replace(/\/api$/, '');
+    return `${base}${imageUrl}`;
   }
 
   return (
@@ -159,8 +160,8 @@ export default function ProductManagement() {
       {/* Header */}
       <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 animate-fade-in-up">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-1">⚙️ จัดการอุปกรณ์</h2>
-          <p className="text-slate-400 text-sm">เพิ่ม แก้ไข ลบ รายการอุปกรณ์โซลาร์เซลล์ ({products.length} รายการ)</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">⚙️ จัดการอุปกรณ์</h2>
+          <p className="text-slate-500 text-sm">เพิ่ม แก้ไข ลบ รายการอุปกรณ์โซลาร์เซลล์ ({products.length} รายการ)</p>
         </div>
         <button onClick={handleAdd} className="btn-primary whitespace-nowrap">➕ เพิ่มอุปกรณ์</button>
       </div>
@@ -198,10 +199,10 @@ export default function ProductManagement() {
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-sm sm:text-base font-semibold text-white truncate">{product.name}</h3>
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-800 truncate">{product.name}</h3>
                   <div className="flex items-center gap-3 mt-0.5 flex-wrap">
-                    <span className="text-xs text-slate-500">หน่วย: <span className="text-slate-400">{product.unit}</span></span>
-                    <span className="text-xs text-slate-500">จุดสั่งซื้อ: <span className="text-solar-400 font-medium">{product.reorder_point}</span></span>
+                    <span className="text-xs text-slate-500">หน่วย: <span className="text-slate-600">{product.unit}</span></span>
+                    <span className="text-xs text-slate-500">จุดสั่งซื้อ: <span className="text-solar-600 font-medium">{product.reorder_point}</span></span>
                   </div>
                 </div>
               </div>
@@ -231,16 +232,16 @@ export default function ProductManagement() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={handleCloseModal} />
           <div className="glass-card relative w-full max-w-md p-6 sm:p-8 animate-fade-in-up z-10 border-solar-500/20 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-xl font-bold text-white mb-6">
+            <h3 className="text-xl font-bold text-slate-900 mb-6">
               {editingProduct ? '✏️ แก้ไขอุปกรณ์' : '➕ เพิ่มอุปกรณ์ใหม่'}
             </h3>
             <form onSubmit={handleSubmit}>
               {/* รูปภาพ */}
               <div className="mb-5">
-                <label className="block text-sm font-medium text-slate-300 mb-2">รูปภาพอุปกรณ์</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">รูปภาพอุปกรณ์</label>
                 <div className="flex items-start gap-4">
                   {/* Preview */}
-                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-surface-700 border-2 border-dashed border-slate-600 shrink-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 border-2 border-dashed border-slate-300 shrink-0 flex items-center justify-center">
                     {imagePreview ? (
                       <img src={imagePreview} alt="preview" className="w-full h-full object-cover" />
                     ) : (
@@ -257,12 +258,12 @@ export default function ProductManagement() {
                       id="image-upload"
                     />
                     <label htmlFor="image-upload"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-600 text-sm text-slate-300 hover:bg-white/5 hover:border-solar-500/40 transition-all cursor-pointer">
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 text-sm text-slate-700 hover:bg-slate-50 hover:border-solar-500/40 transition-all cursor-pointer">
                       📁 เลือกรูป
                     </label>
                     {imagePreview && (
                       <button type="button" onClick={clearImage}
-                        className="ml-2 text-xs text-red-400 hover:text-red-300 transition-colors">
+                        className="ml-2 text-xs text-red-500 hover:text-red-600 transition-colors">
                         ✕ ลบรูป
                       </button>
                     )}
@@ -273,8 +274,8 @@ export default function ProductManagement() {
 
               {/* ชื่อ */}
               <div className="mb-4">
-                <label htmlFor="modal-name" className="block text-sm font-medium text-slate-300 mb-2">
-                  ชื่ออุปกรณ์ <span className="text-red-400">*</span>
+                <label htmlFor="modal-name" className="block text-sm font-medium text-slate-700 mb-2">
+                  ชื่ออุปกรณ์ <span className="text-red-500">*</span>
                 </label>
                 <input id="modal-name" type="text" className="form-input" placeholder="เช่น Solar Panel 550W Mono"
                   value={formName} onChange={(e) => setFormName(e.target.value)} autoFocus required />
@@ -282,8 +283,8 @@ export default function ProductManagement() {
 
               {/* หน่วย */}
               <div className="mb-4">
-                <label htmlFor="modal-unit" className="block text-sm font-medium text-slate-300 mb-2">
-                  หน่วยนับ <span className="text-red-400">*</span>
+                <label htmlFor="modal-unit" className="block text-sm font-medium text-slate-700 mb-2">
+                  หน่วยนับ <span className="text-red-500">*</span>
                 </label>
                 <input id="modal-unit" type="text" className="form-input" placeholder="เช่น แผ่น, ตัว, เส้น"
                   value={formUnit} onChange={(e) => setFormUnit(e.target.value)} required />
@@ -291,7 +292,7 @@ export default function ProductManagement() {
 
               {/* จุดสั่งซื้อ */}
               <div className="mb-6">
-                <label htmlFor="modal-reorder" className="block text-sm font-medium text-slate-300 mb-2">จุดสั่งซื้อซ้ำ (Reorder Point)</label>
+                <label htmlFor="modal-reorder" className="block text-sm font-medium text-slate-700 mb-2">จุดสั่งซื้อซ้ำ (Reorder Point)</label>
                 <input id="modal-reorder" type="number" min="0" className="form-input" placeholder="0"
                   value={formReorderPoint} onChange={(e) => setFormReorderPoint(e.target.value)} />
                 <p className="mt-1 text-xs text-slate-500">ระบบจะเตือนเมื่อคงเหลือต่ำกว่าจำนวนนี้</p>
@@ -300,7 +301,7 @@ export default function ProductManagement() {
               {/* Buttons */}
               <div className="flex gap-3">
                 <button type="button" onClick={handleCloseModal}
-                  className="flex-1 px-4 py-2.5 rounded-xl border border-slate-600 text-slate-300 hover:bg-white/5 transition-colors text-sm font-medium">
+                  className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors text-sm font-medium">
                   ยกเลิก
                 </button>
                 <button type="submit" className="btn-primary flex-1" disabled={submitting}>
@@ -321,15 +322,15 @@ export default function ProductManagement() {
               <div className="w-14 h-14 rounded-full bg-red-500/15 flex items-center justify-center mx-auto mb-3">
                 <span className="text-3xl">🗑️</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">ยืนยันการลบ</h3>
-              <p className="text-sm text-slate-400">
-                ต้องการลบ <span className="text-white font-medium">"{deleteConfirm.name}"</span> ใช่ไหม?
+              <h3 className="text-lg font-bold text-slate-900 mb-2">ยืนยันการลบ</h3>
+              <p className="text-sm text-slate-600">
+                ต้องการลบ <span className="text-slate-900 font-medium">"{deleteConfirm.name}"</span> ใช่ไหม?
               </p>
-              <p className="text-xs text-red-400/80 mt-2">⚠️ ธุรกรรมที่เกี่ยวข้องจะถูกลบทั้งหมด</p>
+              <p className="text-xs text-red-500 mt-2">⚠️ ธุรกรรมที่เกี่ยวข้องจะถูกลบทั้งหมด</p>
             </div>
             <div className="flex gap-3">
               <button onClick={() => setDeleteConfirm(null)}
-                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-600 text-slate-300 hover:bg-white/5 transition-colors text-sm font-medium">
+                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors text-sm font-medium">
                 ยกเลิก
               </button>
               <button onClick={() => handleDelete(deleteConfirm)}

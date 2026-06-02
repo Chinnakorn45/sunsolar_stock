@@ -60,8 +60,8 @@ export default function TransactionHistory() {
     <div className="max-w-6xl mx-auto px-4 py-6 sm:py-10">
       <div className="mb-6 sm:mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4 animate-fade-in-up">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-1">📜 ประวัติรายการทั้งหมด</h2>
-          <p className="text-slate-400 text-sm">ประวัติการนำเข้าและเบิกจ่ายอุปกรณ์</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">📜 ประวัติรายการทั้งหมด</h2>
+          <p className="text-slate-500 text-sm">ประวัติการนำเข้าและเบิกจ่ายอุปกรณ์</p>
         </div>
         
         {/* Filters */}
@@ -128,54 +128,53 @@ export default function TransactionHistory() {
                   {data.map((row, idx) => (
                     <tr key={row.id}>
                       <td className="text-slate-500 text-xs">{idx + 1}</td>
-                      <td className="text-slate-300 text-sm">{formatThaiDateWithTime(row.transaction_date, row.created_at)}</td>
+                      <td className="text-slate-600 text-sm">{formatThaiDateWithTime(row.transaction_date, row.created_at)}</td>
                       <td>
                         <span className={`px-2 py-1 rounded text-xs font-semibold ${
-                          row.type === 'IN' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
+                          row.type === 'IN' ? 'bg-emerald-500/15 text-emerald-600' : 'bg-red-500/15 text-red-600'
                         }`}>
                           {row.type === 'IN' ? '📥 นำเข้า' : '📤 จ่ายออก'}
                         </span>
                       </td>
-                      <td className="font-medium text-white">{row.product_name}</td>
-                      <td className={`text-right font-bold tabular-nums ${row.type === 'IN' ? 'text-emerald-400' : 'text-red-400'}`}>
-                        {row.type === 'IN' ? '+' : '-'}{row.quantity} <span className="text-xs font-normal text-slate-400">{row.unit}</span>
+                      <td className="font-medium text-slate-800">{row.product_name}</td>
+                      <td className={`text-right font-bold tabular-nums ${row.type === 'IN' ? 'text-emerald-600' : 'text-red-600'}`}>
+                        {row.type === 'IN' ? '+' : '-'}{row.quantity} <span className="text-xs font-normal text-slate-500">{row.unit}</span>
                       </td>
-                      <td className="text-slate-400 text-sm">{row.technician_name || '-'}</td>
-                      <td className="text-slate-400 text-sm">{row.job_name || '-'}</td>
-                      <td className="text-slate-400 text-sm">{row.note || '-'}</td>
+                      <td className="text-slate-600 text-sm">{row.technician_name || '-'}</td>
+                      <td className="text-slate-600 text-sm">{row.job_name || '-'}</td>
+                      <td className="text-slate-600 text-sm">{row.note || '-'}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            {/* Mobile List */}
-            <div className="md:hidden divide-y divide-slate-700/30">
+            <div className="md:hidden divide-y divide-slate-700/10">
               {data.map((row) => (
-                <div key={row.id} className="p-4 bg-surface-800/20">
+                <div key={row.id} className="p-4 bg-slate-50/30">
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
-                          row.type === 'IN' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
+                          row.type === 'IN' ? 'bg-emerald-500/15 text-emerald-600' : 'bg-red-500/15 text-red-600'
                         }`}>
                           {row.type === 'IN' ? 'IN' : 'OUT'}
                         </span>
-                        <span className="text-xs text-slate-400">
+                        <span className="text-xs text-slate-500">
                           {formatThaiDateWithTime(row.transaction_date, row.created_at)}
                         </span>
                       </div>
-                      <h4 className="font-medium text-white text-sm">
+                      <h4 className="font-medium text-slate-800 text-sm">
                         {row.product_name}
                       </h4>
                     </div>
-                    <div className={`text-right font-bold tabular-nums text-lg ${row.type === 'IN' ? 'text-emerald-400' : 'text-red-400'}`}>
+                    <div className={`text-right font-bold tabular-nums text-lg ${row.type === 'IN' ? 'text-emerald-600' : 'text-red-600'}`}>
                       {row.type === 'IN' ? '+' : '-'}{row.quantity}
                       <span className="block text-[10px] font-normal text-slate-500">{row.unit}</span>
                     </div>
                   </div>
                   {(row.technician_name || row.job_name || row.note) && (
-                    <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-400 bg-surface-700/30 p-2 rounded">
+                    <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-100/80 p-2 rounded border border-slate-200/50">
                       {row.technician_name && (
                         <div className="col-span-2 sm:col-span-1">👷 ช่าง: {row.technician_name}</div>
                       )}

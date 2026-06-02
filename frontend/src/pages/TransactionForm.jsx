@@ -160,10 +160,10 @@ export default function TransactionForm() {
 
       {/* Header */}
       <div className="mb-6 animate-fade-in-up">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
           📋 บันทึกรายการ
         </h2>
-        <p className="text-slate-400 text-sm">
+        <p className="text-slate-500 text-sm">
           บันทึกการรับเข้าหรือเบิกจ่ายอุปกรณ์โซลาร์เซลล์
         </p>
       </div>
@@ -192,7 +192,7 @@ export default function TransactionForm() {
 
         {/* ประเภท IN / OUT */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-slate-300 mb-2">ประเภทรายการ</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">ประเภทรายการ</label>
           <div className="toggle-group">
             <button
               type="button"
@@ -213,7 +213,7 @@ export default function TransactionForm() {
 
         {/* เลือกอุปกรณ์ */}
         <div className="mb-5">
-          <label htmlFor="product-select" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="product-select" className="block text-sm font-medium text-slate-700 mb-2">
             อุปกรณ์ <span className="text-red-400">*</span>
           </label>
           {loading ? (
@@ -239,7 +239,7 @@ export default function TransactionForm() {
         {/* ช่างผู้รับ (เฉพาะ OUT) */}
         {type === 'OUT' && (
           <div className="mb-5">
-            <label htmlFor="technician-select" className="block text-sm font-medium text-slate-300 mb-2">
+            <label htmlFor="technician-select" className="block text-sm font-medium text-slate-700 mb-2">
               ช่างผู้รับอุปกรณ์
             </label>
             <select
@@ -260,7 +260,7 @@ export default function TransactionForm() {
 
         {/* จำนวน */}
         <div className="mb-5">
-          <label htmlFor="quantity-input" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="quantity-input" className="block text-sm font-medium text-slate-700 mb-2">
             จำนวน <span className="text-red-400">*</span>
           </label>
           <input
@@ -277,7 +277,7 @@ export default function TransactionForm() {
 
         {/* ชื่อหน้างาน */}
         <div className="mb-5">
-          <label htmlFor="job-name-input" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="job-name-input" className="block text-sm font-medium text-slate-700 mb-2">
             ชื่อหน้างาน / โปรเจกต์
           </label>
           <input
@@ -292,7 +292,7 @@ export default function TransactionForm() {
 
         {/* หมายเหตุ */}
         <div className="mb-5">
-          <label htmlFor="note-input" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="note-input" className="block text-sm font-medium text-slate-700 mb-2">
             หมายเหตุ
           </label>
           <input
@@ -307,7 +307,7 @@ export default function TransactionForm() {
 
         {/* วันที่ */}
         <div className="mb-8">
-          <label htmlFor="date-input" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="date-input" className="block text-sm font-medium text-slate-700 mb-2">
             วันที่บันทึก
           </label>
           <input
@@ -342,7 +342,7 @@ export default function TransactionForm() {
       {/* Recent Transactions */}
       {recentTxns.length > 0 && (
         <div className="mt-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <h3 className="text-lg font-semibold text-white mb-4">🕐 รายการที่เพิ่งบันทึก</h3>
+          <h3 className="text-lg font-semibold text-slate-900 mb-4">🕐 รายการที่เพิ่งบันทึก</h3>
           <div className="space-y-3">
             {recentTxns.map((txn, idx) => (
               <div
@@ -353,14 +353,14 @@ export default function TransactionForm() {
                   <span
                     className={`w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0 ${
                       txn.type === 'IN'
-                        ? 'bg-emerald-500/15 text-emerald-400'
-                        : 'bg-red-500/15 text-red-400'
+                        ? 'bg-emerald-500/15 text-emerald-600'
+                        : 'bg-red-500/15 text-red-600'
                     }`}
                   >
                     {txn.type === 'IN' ? '📥' : '📤'}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-white truncate">{txn.product_name}</p>
+                    <p className="text-sm font-medium text-slate-800 truncate">{txn.product_name}</p>
                     <p className="text-xs text-slate-500 truncate">
                       {txn.job_name || '—'}{txn.technician_name ? ` · 👷 ${txn.technician_name}` : ''} · {txn.transaction_date}
                     </p>
@@ -368,7 +368,7 @@ export default function TransactionForm() {
                 </div>
                 <span
                   className={`text-lg font-bold tabular-nums ${
-                    txn.type === 'IN' ? 'text-emerald-400' : 'text-red-400'
+                    txn.type === 'IN' ? 'text-emerald-600' : 'text-red-600'
                   }`}
                 >
                   {txn.type === 'IN' ? '+' : '-'}{txn.quantity} {txn.product_unit}

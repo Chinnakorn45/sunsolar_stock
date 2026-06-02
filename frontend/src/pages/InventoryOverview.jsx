@@ -43,14 +43,15 @@ export default function InventoryOverview() {
   function getImageSrc(imageUrl) {
     if (!imageUrl) return '';
     if (imageUrl.startsWith('http')) return imageUrl;
-    return imageUrl;
+    const base = API_BASE.replace(/\/api$/, '');
+    return `${base}${imageUrl}`;
   }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 sm:py-10">
       <div className="mb-6 sm:mb-8 animate-fade-in-up">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-1">📦 สรุปสต๊อกทั้งหมด (ภาพรวม)</h2>
-        <p className="text-slate-400 text-sm">สถานะคงเหลือของอุปกรณ์ทั้งหมดในระบบ</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">📦 สรุปสต๊อกทั้งหมด (ภาพรวม)</h2>
+        <p className="text-slate-500 text-sm">สถานะคงเหลือของอุปกรณ์ทั้งหมดในระบบ</p>
       </div>
 
       {/* Summary Stats */}
@@ -93,9 +94,9 @@ export default function InventoryOverview() {
                     return (
                       <tr key={row.product_id} className={isLow ? 'low-stock' : ''}>
                         <td className="text-slate-500 text-xs">{idx + 1}</td>
-                        <td className="font-medium text-white">
+                        <td className="font-medium text-slate-800">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded overflow-hidden bg-surface-700 shrink-0 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded overflow-hidden bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center">
                               {row.image_url ? (
                                 <img src={getImageSrc(row.image_url)} alt={row.product_name} className="w-full h-full object-cover" />
                               ) : (
@@ -113,12 +114,12 @@ export default function InventoryOverview() {
                           <NumberDisplay value={row.total_out} type="out" />
                         </td>
                         <td className="text-right">
-                          <span className={`font-bold tabular-nums text-lg ${isLow ? 'text-red-400' : 'text-solar-400'}`}>
+                          <span className={`font-bold tabular-nums text-lg ${isLow ? 'text-red-600' : 'text-solar-600'}`}>
                             {row.net_balance.toLocaleString()}
                           </span>
                         </td>
                         <td className="text-center">
-                          {isLow ? <LowStockBadge /> : <span className="text-xs text-emerald-400/60">✓ ปกติ</span>}
+                          {isLow ? <LowStockBadge /> : <span className="text-xs text-emerald-600 font-semibold">✓ ปกติ</span>}
                         </td>
                       </tr>
                     );
@@ -135,7 +136,7 @@ export default function InventoryOverview() {
                   <div key={row.product_id} className={`mobile-card ${isLow ? 'bg-red-500/5' : ''}`}>
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <div className="w-10 h-10 rounded overflow-hidden bg-surface-700 shrink-0 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded overflow-hidden bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center">
                           {row.image_url ? (
                             <img src={getImageSrc(row.image_url)} alt={row.product_name} className="w-full h-full object-cover" />
                           ) : (
@@ -143,7 +144,7 @@ export default function InventoryOverview() {
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-medium text-white text-sm truncate pr-2">{row.product_name}</h4>
+                          <h4 className="font-medium text-slate-800 text-sm truncate pr-2">{row.product_name}</h4>
                           <span className="text-xs text-slate-500">{row.unit}</span>
                         </div>
                       </div>
@@ -151,16 +152,16 @@ export default function InventoryOverview() {
                     </div>
                     <div className="grid grid-cols-3 gap-2 text-center">
                       <div className="bg-emerald-500/5 rounded-lg p-2">
-                        <p className="text-[10px] text-emerald-500/70 mb-0.5">เข้า (รวม)</p>
-                        <p className="text-sm font-semibold text-emerald-400 tabular-nums">+{row.total_in.toLocaleString()}</p>
+                        <p className="text-[10px] text-emerald-600/70 mb-0.5">เข้า (รวม)</p>
+                        <p className="text-sm font-semibold text-emerald-600 tabular-nums">+{row.total_in.toLocaleString()}</p>
                       </div>
                       <div className="bg-red-500/5 rounded-lg p-2">
                         <p className="text-[10px] text-red-500/70 mb-0.5">ออก (รวม)</p>
-                        <p className="text-sm font-semibold text-red-400 tabular-nums">-{row.total_out.toLocaleString()}</p>
+                        <p className="text-sm font-semibold text-red-600 tabular-nums">-{row.total_out.toLocaleString()}</p>
                       </div>
                       <div className={`rounded-lg p-2 ${isLow ? 'bg-red-500/10' : 'bg-solar-500/10'}`}>
-                        <p className="text-[10px] text-solar-500/70 mb-0.5">คงเหลือ</p>
-                        <p className={`text-sm font-bold tabular-nums ${isLow ? 'text-red-400' : 'text-solar-400'}`}>
+                        <p className="text-[10px] text-solar-600 mb-0.5">คงเหลือ</p>
+                        <p className={`text-sm font-bold tabular-nums ${isLow ? 'text-red-600' : 'text-solar-600'}`}>
                           {row.net_balance.toLocaleString()}
                         </p>
                       </div>

@@ -60,7 +60,8 @@ export default function DailySummary() {
   function getImageSrc(imageUrl) {
     if (!imageUrl) return '';
     if (imageUrl.startsWith('http')) return imageUrl;
-    return imageUrl;
+    const base = API_BASE.replace(/\/api$/, '');
+    return `${base}${imageUrl}`;
   }
 
   return (
@@ -68,8 +69,8 @@ export default function DailySummary() {
       {/* Header + Date Picker */}
       <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 animate-fade-in-up">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-1">📊 สรุปรายวัน</h2>
-          <p className="text-slate-400 text-sm">{formatThaiDate(selectedDate)}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">📊 สรุปรายวัน</h2>
+          <p className="text-slate-500 text-sm">{formatThaiDate(selectedDate)}</p>
         </div>
         <div className="flex items-center gap-3">
           <label htmlFor="summary-date" className="text-sm text-slate-400 whitespace-nowrap">
@@ -91,25 +92,25 @@ export default function DailySummary() {
           label="จำนวนรายการ"
           value={data.length}
           icon="📦"
-          color="text-solar-400"
+          color="text-solar-600"
         />
         <StatCard
           label="รวมรับเข้า"
           value={totals.totalIn}
           icon="📥"
-          color="text-emerald-400"
+          color="text-emerald-600"
         />
         <StatCard
           label="รวมจ่ายออก"
           value={totals.totalOut}
           icon="📤"
-          color="text-red-400"
+          color="text-red-600"
         />
         <StatCard
           label="สต๊อกต่ำ"
           value={lowStockCount}
           icon="⚠️"
-          color={lowStockCount > 0 ? 'text-red-400' : 'text-emerald-400'}
+          color={lowStockCount > 0 ? 'text-red-600' : 'text-emerald-600'}
           alert={lowStockCount > 0}
         />
       </div>
@@ -149,9 +150,9 @@ export default function DailySummary() {
                     return (
                       <tr key={row.product_id} className={isLow ? 'low-stock' : ''}>
                         <td className="text-slate-500 text-xs">{idx + 1}</td>
-                        <td className="font-medium text-white">
+                        <td className="font-medium text-slate-800">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded overflow-hidden bg-surface-700 shrink-0 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded overflow-hidden bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center">
                               {row.image_url ? (
                                 <img src={getImageSrc(row.image_url)} alt={row.product_name} className="w-full h-full object-cover" />
                               ) : (
@@ -161,7 +162,7 @@ export default function DailySummary() {
                             {row.product_name}
                           </div>
                         </td>
-                        <td className="text-slate-400 text-sm">{row.unit}</td>
+                        <td className="text-slate-500 text-sm">{row.unit}</td>
                         <td className="text-right">
                           <NumberDisplay value={row.balance_forward} type="neutral" />
                         </td>
@@ -173,14 +174,14 @@ export default function DailySummary() {
                         </td>
                         <td className="text-right">
                           <span className={`font-bold tabular-nums text-base ${
-                            isLow ? 'text-red-400' : 'text-white'
+                            isLow ? 'text-red-600' : 'text-slate-800'
                           }`}>
                             {row.net_balance.toLocaleString()}
                           </span>
                         </td>
                         <td className="text-center">
                           {isLow ? <LowStockBadge /> : (
-                            <span className="text-xs text-emerald-400/60">✓ ปกติ</span>
+                            <span className="text-xs text-emerald-600 font-semibold">✓ ปกติ</span>
                           )}
                         </td>
                       </tr>
@@ -202,7 +203,7 @@ export default function DailySummary() {
                     {/* Product Name + Status */}
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <div className="w-10 h-10 rounded overflow-hidden bg-surface-700 shrink-0 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded overflow-hidden bg-slate-100 border border-slate-200 shrink-0 flex items-center justify-center">
                           {row.image_url ? (
                             <img src={getImageSrc(row.image_url)} alt={row.product_name} className="w-full h-full object-cover" />
                           ) : (
@@ -210,7 +211,7 @@ export default function DailySummary() {
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-medium text-white text-sm truncate pr-2">
+                          <h4 className="font-medium text-slate-800 text-sm truncate pr-2">
                             {row.product_name}
                           </h4>
                           <span className="text-xs text-slate-500">{row.unit}</span>
@@ -221,27 +222,27 @@ export default function DailySummary() {
 
                     {/* Numbers Grid */}
                     <div className="grid grid-cols-4 gap-2 text-center">
-                      <div className="bg-surface-700/50 rounded-lg p-2">
+                      <div className="bg-slate-100 rounded-lg p-2 border border-slate-200">
                         <p className="text-[10px] text-slate-500 mb-0.5">ยอดยกมา</p>
-                        <p className="text-sm font-semibold text-slate-300 tabular-nums">
+                        <p className="text-sm font-semibold text-slate-700 tabular-nums">
                           {row.balance_forward.toLocaleString()}
                         </p>
                       </div>
                       <div className="bg-emerald-500/5 rounded-lg p-2">
-                        <p className="text-[10px] text-emerald-500/70 mb-0.5">เข้า</p>
-                        <p className="text-sm font-semibold text-emerald-400 tabular-nums">
+                        <p className="text-[10px] text-emerald-600/70 mb-0.5">เข้า</p>
+                        <p className="text-sm font-semibold text-emerald-600 tabular-nums">
                           {row.total_in > 0 ? `+${row.total_in.toLocaleString()}` : '—'}
                         </p>
                       </div>
                       <div className="bg-red-500/5 rounded-lg p-2">
                         <p className="text-[10px] text-red-500/70 mb-0.5">ออก</p>
-                        <p className="text-sm font-semibold text-red-400 tabular-nums">
+                        <p className="text-sm font-semibold text-red-600 tabular-nums">
                           {row.total_out > 0 ? `-${row.total_out.toLocaleString()}` : '—'}
                         </p>
                       </div>
                       <div className={`rounded-lg p-2 ${isLow ? 'bg-red-500/10' : 'bg-solar-500/10'}`}>
-                        <p className="text-[10px] text-solar-500/70 mb-0.5">คงเหลือ</p>
-                        <p className={`text-sm font-bold tabular-nums ${isLow ? 'text-red-400' : 'text-solar-400'}`}>
+                        <p className="text-[10px] text-solar-600 mb-0.5">คงเหลือ</p>
+                        <p className={`text-sm font-bold tabular-nums ${isLow ? 'text-red-600' : 'text-solar-600'}`}>
                           {row.net_balance.toLocaleString()}
                         </p>
                       </div>
@@ -273,7 +274,7 @@ function StatCard({ label, value, icon, color, alert }) {
     <div className={`glass-card p-4 sm:p-5 ${alert ? 'border-red-500/30' : ''}`}>
       <div className="flex items-center gap-2 mb-2">
         <span className="text-lg">{icon}</span>
-        <span className="text-xs text-slate-400">{label}</span>
+        <span className="text-xs text-slate-500">{label}</span>
       </div>
       <p className={`text-2xl sm:text-3xl font-bold tabular-nums ${color}`}>
         {value.toLocaleString()}
