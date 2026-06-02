@@ -2,14 +2,14 @@
  * App.jsx — Main Router
  * 4 หน้าหลัก: บันทึกรายการ (/) + สรุปรายวัน (/summary) + จัดการอุปกรณ์ (/products) + จัดการช่าง (/technicians)
  */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import TransactionForm from './pages/TransactionForm';
 import DailySummary from './pages/DailySummary';
+import InventoryOverview from './pages/InventoryOverview';
 import ProductManagement from './pages/ProductManagement';
 import TechnicianManagement from './pages/TechnicianManagement';
+import TransactionForm from './pages/TransactionForm';
 import TransactionHistory from './pages/TransactionHistory';
-import InventoryOverview from './pages/InventoryOverview';
 
 export default function App() {
   return (
@@ -24,6 +24,7 @@ export default function App() {
             <Route path="/history" element={<TransactionHistory />} />
             <Route path="/products" element={<ProductManagement />} />
             <Route path="/technicians" element={<TechnicianManagement />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 
