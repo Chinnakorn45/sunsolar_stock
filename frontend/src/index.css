@@ -1,9 +1,9 @@
 /* --- Google Font --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
 
 /* ============================================
    Solar Stock Management — Design System
-   Dark mode solar-themed with amber accents
+   Bright palette with friendly typography
    ============================================ */
 
 @import "tailwindcss";
@@ -35,7 +35,7 @@
   --color-info-400: #60a5fa;
   --color-info-500: #3b82f6;
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* --- Base Styles --- */
@@ -44,6 +44,18 @@ body {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 55%, #dbeafe 100%);
   color: #0f172a;
   min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #0f172a;
+}
+
+p, label, button, input, select, textarea, th, td, span {
+  font-family: var(--font-sans);
 }
 
 /* --- Glassmorphism Card --- */
@@ -262,15 +274,15 @@ body {
 }
 
 .summary-table thead th {
-  background: rgba(26, 34, 53, 0.9);
-  color: var(--color-solar-400);
-  font-weight: 600;
-  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   padding: 0.875rem 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -278,21 +290,21 @@ body {
 
 .summary-table tbody td {
   padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.55);
   transition: background 0.15s ease;
 }
 
 .summary-table tbody tr:hover td {
-  background: rgba(251, 191, 36, 0.04);
+  background: rgba(251, 146, 60, 0.08);
 }
 
 .summary-table tbody tr.low-stock td {
-  background: rgba(239, 68, 68, 0.08);
+  background: rgba(254, 226, 226, 0.45);
 }
 
 .summary-table tbody tr.low-stock:hover td {
-  background: rgba(239, 68, 68, 0.12);
+  background: rgba(254, 226, 226, 0.6);
 }
 
 /* --- Low stock warning pulse --- */
