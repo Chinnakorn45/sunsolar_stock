@@ -4,7 +4,7 @@
 // external Render backend URL directly for API calls.
 const rawApiBase = import.meta.env.VITE_API_BASE?.trim();
 
-const fallbackApiBase = typeof window !== 'undefined' && window.location.hostname === 'sunsolar-stock.vercel.app'
+const fallbackApiBase = typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app')
   ? 'https://sunsolar-stock.onrender.com/api'
   : '/api';
 
