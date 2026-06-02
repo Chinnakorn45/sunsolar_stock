@@ -4,17 +4,13 @@
   command = "npm run build"
 
 [build.environment]
-# Set your backend URL here if you host the API separately.
-# Example:
-# VITE_API_BASE = "https://api.example.com"
-# If you use a separate backend and want Netlify to proxy /api/*,
-# replace the placeholder below with a real backend URL.
-#
-# [[redirects]]
-#   from = "/api/*"
-#   to = "https://api.example.com/:splat"
-#   status = 200
-#   force = false
+  VITE_API_BASE = "/api"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://sunsolar-stock.onrender.com/:splat"
+  status = 200
+  force = false
 
 [[redirects]]
   from = "/*"
