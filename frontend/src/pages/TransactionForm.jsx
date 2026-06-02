@@ -170,14 +170,14 @@ export default function TransactionForm() {
 
       {/* Low Stock Alert */}
       {products.filter(p => p.reorder_point > 0 && p.net_balance <= p.reorder_point).length > 0 && (
-        <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-lg p-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6 bg-red-50 border border-red-200/80 rounded-xl p-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
           <div className="flex items-start gap-3">
-            <span className="text-red-400 text-xl">⚠️</span>
+            <span className="text-red-600 text-xl leading-none">⚠️</span>
             <div>
-              <h3 className="text-red-400 font-semibold text-sm mb-2">แจ้งเตือน: อุปกรณ์ใกล้หมดสต๊อก</h3>
-              <div className="text-xs text-red-300/80 flex flex-wrap gap-2">
+              <h3 className="text-red-800 font-bold text-sm mb-2">แจ้งเตือน: อุปกรณ์ใกล้หมดสต๊อก</h3>
+              <div className="text-xs flex flex-wrap gap-2">
                 {products.filter(p => p.reorder_point > 0 && p.net_balance <= p.reorder_point).map(p => (
-                  <span key={p.id} className="bg-red-500/20 px-2 py-1 rounded border border-red-500/20">
+                  <span key={p.id} className="bg-white border border-red-200 text-red-700 px-2.5 py-1 rounded-lg font-semibold shadow-sm">
                     {p.name} (เหลือ {p.net_balance} {p.unit})
                   </span>
                 ))}

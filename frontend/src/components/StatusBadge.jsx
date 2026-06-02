@@ -12,11 +12,11 @@ export function TypeBadge({ type }) {
     <span
       className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold tracking-wide ${
         isIn
-          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
-          : 'bg-red-500/15 text-red-400 border border-red-500/20'
+          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-sm'
+          : 'bg-red-50 text-red-700 border border-red-200/80 shadow-sm'
       }`}
     >
-      <span className={`w-1.5 h-1.5 rounded-full ${isIn ? 'bg-emerald-400' : 'bg-red-400'}`}></span>
+      <span className={`w-1.5 h-1.5 rounded-full ${isIn ? 'bg-emerald-500' : 'bg-red-500'}`}></span>
       {isIn ? 'นำเข้า' : 'จ่ายออก'}
     </span>
   );
@@ -27,7 +27,7 @@ export function TypeBadge({ type }) {
  */
 export function LowStockBadge() {
   return (
-    <span className="low-stock-badge inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-500/15 text-red-400 border border-red-500/20">
+    <span className="low-stock-badge inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-50 text-red-700 border border-red-200/80 shadow-sm">
       ⚠️ สต๊อกต่ำ
     </span>
   );
@@ -39,7 +39,7 @@ export function LowStockBadge() {
 export function NumberDisplay({ value, type }) {
   if (value === 0) return <span className="text-slate-500">—</span>;
 
-  const colorClass = type === 'in' ? 'text-emerald-400' : type === 'out' ? 'text-red-400' : 'text-white';
+  const colorClass = type === 'in' ? 'text-emerald-600' : type === 'out' ? 'text-red-600' : 'text-slate-800';
   const prefix = type === 'in' ? '+' : type === 'out' ? '-' : '';
 
   return (
