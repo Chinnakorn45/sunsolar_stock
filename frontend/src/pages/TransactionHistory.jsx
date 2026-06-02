@@ -2,7 +2,7 @@
  * TransactionHistory.jsx — หน้าประวัติรายการทั้งหมด
  * แสดงรายการ IN/OUT ทั้งหมดที่เคยบันทึก
  */
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { API_BASE } from '../utils/api';
 
 export default function TransactionHistory() {
