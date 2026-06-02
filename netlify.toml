@@ -4,13 +4,19 @@
   command = "npm run build"
 
 [build.environment]
-  VITE_API_BASE = "/api"
+  # ไม่ต้องกำหนด VITE_API_BASE ที่นี่
+  # frontend จะตรวจ hostname เองและยิงตรงไป Render เมื่อไม่ใช่ localhost
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
 
 [[redirects]]
   from = "/api/*"
   to = "https://sunsolar-stock.onrender.com/:splat"
   status = 200
-  force = false
+  force = true
 
 [[redirects]]
   from = "/*"
