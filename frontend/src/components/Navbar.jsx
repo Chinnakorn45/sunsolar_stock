@@ -2,8 +2,8 @@
  * Navbar.jsx — Navigation Bar
  * Solar-themed top navigation with responsive mobile menu
  */
-import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,11 +21,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-solar-400 to-solar-600 flex items-center justify-center">
-              <span className="text-lg">☀️</span>
+            <div className="w-9 h-9 rounded-lg overflow-hidden bg-white/95 border border-slate-200 shadow-sm">
+              <img src="/logo.png" alt="Solar Stock" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-white leading-tight">Solar Stock</h1>
+              <h1 className="text-base font-bold text-slate-900 leading-tight">Solar Stock</h1>
               <p className="text-[10px] text-slate-500 leading-tight">Equipment Management</p>
             </div>
           </div>
