@@ -2,7 +2,7 @@
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
   "env": {
-    "VITE_API_BASE": "@vite-api-base"
+    "VITE_API_BASE": "http://localhost:5000"
   },
   "rewrites": [
     {
@@ -13,8 +13,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "env": {
-    "VITE_API_BASE": "http://localhost:5000"
-  }
+  ]
 }
