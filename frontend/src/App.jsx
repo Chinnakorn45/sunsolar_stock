@@ -10,6 +10,7 @@ import ProductManagement from './pages/ProductManagement';
 import TechnicianManagement from './pages/TechnicianManagement';
 import TransactionForm from './pages/TransactionForm';
 import TransactionHistory from './pages/TransactionHistory';
+import StockList from './pages/StockList';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/" element={<TransactionForm />} />
             <Route path="/summary" element={<DailySummary />} />
             <Route path="/overview" element={<InventoryOverview />} />
+            <Route path="/stock" element={<StockList />} />
             <Route path="/history" element={<TransactionHistory />} />
             <Route path="/products" element={<ProductManagement />} />
             <Route path="/technicians" element={<TechnicianManagement />} />

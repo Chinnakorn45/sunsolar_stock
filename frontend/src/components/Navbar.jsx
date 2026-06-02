@@ -41,6 +41,9 @@ export default function Navbar() {
             <NavLink to="/overview" className={linkClass}>
               📦 ภาพรวม
             </NavLink>
+            <NavLink to="/stock" className={linkClass}>
+              🗂️ สต๊อก
+            </NavLink>
             <NavLink to="/history" className={linkClass}>
               📜 ประวัติ
             </NavLink>
@@ -80,6 +83,9 @@ export default function Navbar() {
               </NavLink>
               <NavLink to="/overview" className={linkClass} onClick={() => setMobileOpen(false)}>
                 📦 ภาพรวม
+              </NavLink>
+              <NavLink to="/stock" className={linkClass} onClick={() => setMobileOpen(false)}>
+                🗂️ สต๊อก
               </NavLink>
               <NavLink to="/history" className={linkClass} onClick={() => setMobileOpen(false)}>
                 📜 ประวัติ
