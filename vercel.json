@@ -1,6 +1,6 @@
 {
-  "installCommand": "cd frontend && npm ci",
-  "buildCommand": "cd frontend && npm run build",
+  "installCommand": "echo 'skip install'",
+  "buildCommand": "cd frontend && npm ci && npm run build",
   "outputDirectory": "frontend/dist",
   "build": {
     "env": {
