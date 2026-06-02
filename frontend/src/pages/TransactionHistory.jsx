@@ -20,14 +20,11 @@ export default function TransactionHistory() {
   async function fetchHistory() {
     setLoading(true);
     try {
-      let url = '/api/transactions/history';
+      let url = `${API_BASE}/transactions/history`;
       if (filterMode === 'daily') {
         url += `?startDate=${selectedDate}&endDate=${selectedDate}`;
       } else if (filterMode === 'monthly') {
         const [year, month] = selectedMonth.split('-');
-        // เดือนใน JS เริ่มที่ 0 (0-11)
-        const firstDay = new Date(year, parseInt(month) - 1, 2).toISOString().split('T')[0]; // +2 hours/days offset workaround or just use local
-        // วิธีที่ปลอดภัยกับ Timezone:
         const firstDate = `${year}-${month}-01`;
         const lastDay = new Date(year, parseInt(month), 0).getDate();
         const lastDate = `${year}-${month}-${lastDay}`;
@@ -35,6 +32,10 @@ export default function TransactionHistory() {
       }
 
       const res = await fetch(url);
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Request failed ${res.status}: ${text}`);
+      }
       const json = await res.json();
       setData(json);
     } catch (err) {
