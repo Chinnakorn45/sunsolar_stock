@@ -3,10 +3,6 @@
   publish = "dist"
   command = "npm run build"
 
-[build.environment]
-  # ไม่ต้องกำหนด VITE_API_BASE ที่นี่
-  # frontend จะตรวจ hostname เองและยิงตรงไป Render เมื่อไม่ใช่ localhost
-
 [[headers]]
   for = "/api/*"
   [headers.values]
@@ -14,7 +10,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://sunsolar-stock.onrender.com/:splat"
+  to = "https://sunsolar-stock.onrender.com/api/:splat"
   status = 200
   force = true
 

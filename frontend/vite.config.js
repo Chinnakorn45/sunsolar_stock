@@ -12,5 +12,13 @@ export default defineConfig({
     watch: {
       usePolling: true,      // ใช้ polling สำหรับ Docker volumes (Windows/macOS)
     },
+    proxy: {
+      // Local dev: /api/* → backend ที่ localhost:5000/api/*
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 })
