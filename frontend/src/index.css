@@ -1,12 +1,12 @@
-@import "tailwindcss";
+/* --- Google Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* ============================================
    Solar Stock Management — Design System
    Dark mode solar-themed with amber accents
    ============================================ */
 
-/* --- Google Font --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
 
 /* --- Tailwind v4 Theme --- */
 @theme {

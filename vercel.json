@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "postgresql://neondb_owner:npg_l5egxQTCmIO3@ep-rapid-base-aoc1z09g-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+      "destination": "https://ep-rapid-base-aoc1z09g.apirest.c-2.ap-southeast-1.aws.neon.tech/neondb/rest/v1:path*"
     },
     {
       "source": "/(.*)",
