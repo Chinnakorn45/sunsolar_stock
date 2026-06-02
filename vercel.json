@@ -7,11 +7,14 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://ep-rapid-base-aoc1z09g.apirest.c-2.ap-southeast-1.aws.neon.tech/neondb/rest/v1:path*"
+      "destination": "http://localhost:5000/api/:path*"
     },
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "VITE_API_BASE": "http://localhost:5000"
+  }
 }
