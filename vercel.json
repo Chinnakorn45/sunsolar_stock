@@ -1,7 +1,7 @@
 {
   "installCommand": "echo 'skip install'",
-  "buildCommand": "cd frontend && npm ci && npm run build",
-  "outputDirectory": "frontend/dist",
+  "buildCommand": "npm ci && npm run build",
+  "outputDirectory": "dist",
   "build": {
     "env": {
       "VITE_API_BASE": "https://sunsolar-stock.onrender.com"
